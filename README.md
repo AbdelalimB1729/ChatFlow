@@ -1,278 +1,245 @@
-# ChatBridgePro
+# ChatFlow
 
-An enterprise-grade, modular real-time chat application built with Flask backend and React frontend with TypeScript.
+ChatFlow is a modern, real-time chat application built with Python (Flask) backend and React TypeScript frontend. It features a robust architecture with real-time messaging, user authentication, and advanced security measures.
 
 ## Features
 
-### Backend Features
-- **Modular Architecture**: Clean separation of concerns with services, events, and utilities
-- **Socket.IO Integration**: Real-time communication with namespaces for different features
-- **JWT Authentication**: Secure token-based authentication system
-- **Rate Limiting**: Built-in rate limiting for messages and connections
-- **Message Validation**: Comprehensive input validation and sanitization
-- **Typing Indicators**: Real-time typing status for users
-- **Message Read Receipts**: Track message delivery and read status
-- **Online Status Tracking**: Monitor user presence and activity
-- **Heartbeat System**: Connection monitoring and health checks
-- **Error Handling**: Robust error handling and logging
+### Backend
+- **Authentication & Authorization**
+  - JWT-based authentication with refresh tokens
+  - Role-based access control
+  - Email verification
+  - Password reset functionality
+  - Session management across devices
 
-### Frontend Features
-- **React with TypeScript**: Modern, type-safe frontend development
-- **Context API**: Centralized state management
-- **Custom Hooks**: Reusable logic for socket operations and chat functionality
-- **Zustand Stores**: Lightweight state management for persistence
-- **Responsive Design**: Mobile-first responsive layout
-- **Real-time Updates**: Live message updates and user presence
-- **Typing Indicators**: Visual feedback for user typing activity
-- **Message Read Receipts**: Visual indicators for message status
-- **Error Boundaries**: Graceful error handling and recovery
-- **Loading States**: Comprehensive loading and error states
+- **Real-time Communication**
+  - WebSocket-based messaging
+  - Typing indicators
+  - Online presence tracking
+  - Message read receipts
 
-## Project Structure
+- **Chat Features**
+  - Group chat rooms
+  - Private messaging
+  - File sharing
+  - Message history
+  - User mentions
 
-```
-ChatBridgePro/
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── config.py
-│   │   ├── extensions.py
-│   │   ├── models.py
-│   │   ├── events/
-│   │   │   ├── connection_events.py
-│   │   │   ├── message_events.py
-│   │   │   └── user_events.py
-│   │   ├── services/
-│   │   │   ├── auth_service.py
-│   │   │   ├── chat_service.py
-│   │   │   └── user_service.py
-│   │   ├── sockets/
-│   │   │   ├── chat_namespace.py
-│   │   │   └── main_socket.py
-│   │   └── utils/
-│   │       ├── decorators.py
-│   │       └── validators.py
-│   ├── requirements.txt
-│   └── run.py
-├── frontend/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── api/
-│   │   │   ├── socket.ts
-│   │   │   └── chatAPI.ts
-│   │   ├── components/
-│   │   │   ├── chat/
-│   │   │   │   ├── ChatContainer.tsx
-│   │   │   │   ├── MessageInput.tsx
-│   │   │   │   ├── MessageList.tsx
-│   │   │   │   └── TypingIndicator.tsx
-│   │   │   ├── user/
-│   │   │   │   ├── UserList.tsx
-│   │   │   │   ├── UserProfile.tsx
-│   │   │   │   └── AuthForm.tsx
-│   │   │   ├── ui/
-│   │   │   │   ├── Notification.tsx
-│   │   │   │   ├── Loader.tsx
-│   │   │   │   └── ErrorBoundary.tsx
-│   │   │   └── layout/
-│   │   │       ├── MainLayout.tsx
-│   │   │       └── Sidebar.tsx
-│   │   ├── contexts/
-│   │   │   ├── ChatContext.tsx
-│   │   │   ├── SocketContext.tsx
-│   │   │   └── AuthContext.tsx
-│   │   ├── hooks/
-│   │   │   ├── useSocket.ts
-│   │   │   ├── useChat.ts
-│   │   │   └── useAuth.ts
-│   │   ├── stores/
-│   │   │   ├── chatStore.ts
-│   │   │   └── userStore.ts
-│   │   ├── types/
-│   │   │   ├── chatTypes.ts
-│   │   │   ├── userTypes.ts
-│   │   │   └── socketTypes.ts
-│   │   ├── utils/
-│   │   │   ├── formatters.ts
-│   │   │   ├── validators.ts
-│   │   │   └── constants.ts
-│   │   ├── App.tsx
-│   │   ├── index.tsx
-│   │   └── index.css
-│   ├── package.json
-│   └── tsconfig.json
-└── README.md
-```
+- **Security**
+  - Rate limiting
+  - Input validation
+  - XSS protection
+  - CSRF protection
+  - SQL injection prevention
 
-## Installation
+- **Performance**
+  - Redis caching
+  - Database connection pooling
+  - Message pagination
+  - WebSocket message queuing
+
+### Frontend
+- **Modern UI Components**
+  - Material-UI based design
+  - Responsive layout
+  - Dark/light theme support
+  - Animated transitions
+
+- **Real-time Features**
+  - Instant messaging
+  - Live typing indicators
+  - Online status updates
+  - Real-time notifications
+
+- **Performance Optimizations**
+  - Virtual scrolling for messages
+  - Lazy loading of images
+  - Efficient state management
+  - Optimistic updates
+
+## Technology Stack
+
+### Backend
+- Flask
+- Flask-SocketIO
+- SQLAlchemy
+- Redis
+- Celery
+- JWT
+- PostgreSQL
+
+### Frontend
+- React
+- TypeScript
+- Material-UI
+- Socket.IO Client
+- React Query
+- Zustand
+
+## Getting Started
+
+### Prerequisites
+- Python 3.8+
+- Node.js 16+
+- Redis
+- PostgreSQL
 
 ### Backend Setup
 
-1. Navigate to the backend directory:
-```bash
-cd backend
-```
+1. Create a virtual environment:
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-2. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-4. Set up environment variables (create a `.env` file):
-```env
-FLASK_APP=run.py
-FLASK_ENV=development
-SECRET_KEY=your-super-secret-key-change-in-production
-JWT_SECRET_KEY=your-jwt-secret-key-change-in-production
-SOCKET_CORS_ORIGINS=http://localhost:3001
-```
+4. Initialize the database:
+   ```bash
+   flask db upgrade
+   ```
 
-5. Run the backend server:
-```bash
-python run.py
-```
-
-The backend will run on `http://localhost:5001`
+5. Run the server:
+   ```bash
+   python run.py
+   ```
 
 ### Frontend Setup
 
-1. Navigate to the frontend directory:
+1. Install dependencies:
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+3. Run the development server:
+   ```bash
+   npm start
+   ```
+
+## Project Structure
+
+### Backend
+```
+backend/
+├── app/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── models.py
+│   ├── extensions.py
+│   ├── events/
+│   │   ├── connection_events.py
+│   │   ├── message_events.py
+│   │   └── user_events.py
+│   ├── services/
+│   │   ├── auth_service.py
+│   │   ├── chat_service.py
+│   │   └── user_service.py
+│   ├── sockets/
+│   │   ├── chat_namespace.py
+│   │   └── main_socket.py
+│   └── utils/
+│       ├── decorators.py
+│       └── validators.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_auth.py
+│   └── test_chat.py
+└── requirements.txt
+```
+
+### Frontend
+```
+frontend/
+├── public/
+├── src/
+│   ├── api/
+│   ├── components/
+│   │   ├── chat/
+│   │   ├── layout/
+│   │   ├── ui/
+│   │   └── user/
+│   ├── contexts/
+│   ├── hooks/
+│   ├── stores/
+│   ├── types/
+│   └── utils/
+├── package.json
+└── tsconfig.json
+```
+
+## Testing
+
+### Backend Tests
+```bash
+cd backend
+pytest
+```
+
+### Frontend Tests
 ```bash
 cd frontend
+npm test
 ```
 
-2. Install dependencies:
+### E2E Tests
 ```bash
-npm install
+cd frontend
+npm run test:e2e
 ```
 
-3. Start the development server:
-```bash
-npm start
-```
+## Security Considerations
 
-The frontend will run on `http://localhost:3001`
+- All passwords are hashed using bcrypt
+- JWT tokens are short-lived with refresh token rotation
+- Rate limiting is implemented on sensitive endpoints
+- Input validation and sanitization for all user inputs
+- CORS is properly configured
+- WebSocket connections are authenticated
+- File uploads are validated and scanned
+- SQL queries are parameterized
 
-## Usage
+## Performance Optimizations
 
-1. Open your browser and navigate to `http://localhost:3001`
-2. Register a new account or login with existing credentials
-3. Start chatting in the real-time chat interface
-4. Use the sidebar to view online users and manage rooms
-
-## API Endpoints
-
-### Socket Events
-
-#### Authentication
-- `authenticate` - Authenticate user with JWT token
-- `register` - Register new user
-- `login` - Login user
-- `logout` - Logout user
-
-#### Chat
-- `join_room` - Join a chat room
-- `leave_room` - Leave a chat room
-- `send_message` - Send a message
-- `get_messages` - Get room messages
-- `mark_read` - Mark message as read
-- `mark_delivered` - Mark message as delivered
-
-#### Typing
-- `typing_start` - Start typing indicator
-- `typing_stop` - Stop typing indicator
-- `get_typing_users` - Get typing users
-
-#### Users
-- `get_online_users` - Get online users
-- `get_all_users` - Get all users
-- `get_user_profile` - Get user profile
-- `search_users` - Search users
-- `get_user_statistics` - Get user statistics
-
-#### Rooms
-- `create_room` - Create new room
-- `get_rooms` - Get available rooms
-
-## Configuration
-
-### Backend Configuration
-
-The backend configuration is managed through the `Config` class in `backend/app/config.py`:
-
-- `SECRET_KEY`: Flask secret key
-- `JWT_SECRET_KEY`: JWT token secret
-- `SOCKET_CORS_ORIGINS`: CORS origins for Socket.IO
-- `MESSAGE_QUEUE_SIZE`: Maximum message queue size
-- `RATE_LIMIT_MESSAGES`: Rate limit for messages per minute
-- `RATE_LIMIT_CONNECTIONS`: Rate limit for connections per minute
-- `HEARTBEAT_INTERVAL`: Heartbeat interval in seconds
-- `TYPING_TIMEOUT`: Typing indicator timeout
-
-### Frontend Configuration
-
-The frontend configuration is managed through constants in `frontend/src/utils/constants.ts`:
-
-- `SOCKET_URL`: Backend socket URL
-- `HEARTBEAT_INTERVAL`: Heartbeat interval
-- `TYPING_TIMEOUT`: Typing indicator timeout
-- `MESSAGE_LIMIT`: Message pagination limit
-
-## Development
-
-### Backend Development
-
-The backend follows a modular architecture:
-
-- **Models**: Data models and in-memory storage
-- **Services**: Business logic layer
-- **Events**: Socket event handlers
-- **Utils**: Utility functions and decorators
-
-### Frontend Development
-
-The frontend follows modern React patterns:
-
-- **Contexts**: State management with React Context
-- **Hooks**: Custom hooks for reusable logic
-- **Stores**: Zustand stores for state persistence
-- **Components**: Reusable UI components
-
-## Security Features
-
-- JWT token-based authentication
-- Input validation and sanitization
-- Rate limiting for API endpoints
-- CORS configuration
-- Error handling and logging
-
-## Performance Features
-
-- Message pagination
-- Typing indicator timeouts
-- Connection heartbeat monitoring
+- Redis caching for frequently accessed data
+- Database connection pooling
+- WebSocket message queuing
+- Frontend virtual scrolling
 - Efficient state management
-- Optimized re-renders with React.memo
+- Asset optimization and lazy loading
+- API response pagination
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## Acknowledgments
 
-For support and questions, please open an issue on the GitHub repository. 
+- [Flask](https://flask.palletsprojects.com/)
+- [React](https://reactjs.org/)
+- [Material-UI](https://mui.com/)
+- [Socket.IO](https://socket.io/)
